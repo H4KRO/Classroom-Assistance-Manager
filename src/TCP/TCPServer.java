@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TCPServer {
+public abstract class TCPServer {
 	protected ServerSocket serverSocket;
 	private boolean isRunning;
 	public TCPServer(int port) throws IOException {
@@ -13,7 +13,7 @@ public class TCPServer {
 		while(isRunning) {
 			Socket clientSocket = this.serverSocket.accept();
 			System.out.println("New client !");
-			Thread clientThread = new Thread(new TCPHandler(clientSocket));
+			Thread clientThread = new Thread(connection(clientSocket));
 			clientThread.start();
 		}
 		
@@ -27,4 +27,6 @@ public class TCPServer {
 			e.printStackTrace();
 		}
 	}
+	
+	public abstract TCPHandler connection(Socket cliendSocket);
 }

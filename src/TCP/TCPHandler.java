@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class TCPHandler implements Runnable {
+public abstract class TCPHandler implements Runnable {
 	private Socket socket;
 	private BufferedReader bufferedReader; 
 	private PrintWriter printWriter;
@@ -38,4 +38,6 @@ public class TCPHandler implements Runnable {
 	public void stop() throws IOException {
 		this.socket.close();
 	}
+	
+	public abstract void trait(String message);
 }
