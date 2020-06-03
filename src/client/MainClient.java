@@ -1,13 +1,14 @@
 package client;
-import commons.*;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import TCP.TCPHandler;
 
 public class MainClient {
 
-	public static void main(String[] args) {
-		Classroom classroom = new Classroom("A-1");
-		classroom.computers.add(new Integer(1));
-		classroom.computers.add(new Integer(2));
-		System.out.println(classroom);
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		
 	}
 
 }
