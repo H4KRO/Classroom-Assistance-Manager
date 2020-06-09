@@ -5,6 +5,8 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
 import TCP.TCPJsonMessage;
 
 public class Session extends TCPJsonMessage {
@@ -24,20 +26,18 @@ public class Session extends TCPJsonMessage {
 	}
 	
 	public String toString() {
-		return this.name + " " +this.surname +" "+this.classroomId+" "+this.computerId;
-	}
-
-	@Override
-	public void setData() {
-		this.data = new JSONObject();
-		data.put("name", this.name);
-		data.put("surname", this.surname);
-		data.put("classroomId", this.classroomId);
-		data.put("computerId", new Integer(this.computerId));
-		this.data = data;
+		String string = "\n========================================\n";
+		string += "Session :\n";
+		string += " Name : " + this.name + "\n";
+		string += " Surname : " + this.surname + "\n";
+		string += " Classroom : " + this.classroomId + "\n";
+		string += " ComputerId : " + this.computerId + "\n";
+		string += "========================================\n";
+		return string;
 	}
 	
-	public static Session toSession(Object message) {
-		return null;
+	public static Session toSession(String message) {
+		Gson gson = new Gson();
+		return gson.fromJson(message, Session.class);
 	}
 }

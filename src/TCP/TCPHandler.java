@@ -21,7 +21,7 @@ public abstract class TCPHandler implements Runnable {
 			try {
 				String message = this.bufferedReader.readLine();
 				if(message != null) {
-					System.out.println(message);
+					this.trait(message);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

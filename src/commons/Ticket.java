@@ -2,6 +2,8 @@ package commons;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
 import TCP.TCPJsonMessage;
 
 public class Ticket extends TCPJsonMessage {
@@ -22,20 +24,19 @@ public class Ticket extends TCPJsonMessage {
 		
 	}
 	public String toString() {
-		return " Le motif est : "+this.reason + "\n La description est:  " +this.description +"\n La criticité est : "+this.severity+"\n L'état du ticket est :  " + state;
-	}
-	@Override
-	public void setData() {
-		JSONObject data = new JSONObject();
-		data.put("reason", this.reason);
-		data.put("description", this.description);
-		data.put("severity", new Integer(this.severity));
-		data.put("session", this.session.getData());
-		this.data = data;
+		String string = "\n========================================\n";
+		string += "Ticket : \n";
+		string += " Reason : " + this.reason + "\n";
+		string += " Description : " + this.description + "\n";
+		string += " Severity : " + this.severity + "\n";
+		string += " Session : " + this.session + "\n";
+		string += " State : " + this.state + "\n";
+		string += "========================================\n";
+		return string;
 	}
 	
-	public static Ticket toTicket(JSONObject message) {
-		// Convertir message en Ticket et le retourne
-		return null;
+	public static Ticket toTicket(String message) {
+		Gson gson = new Gson();
+		return gson.fromJson(message, Ticket.class);
 	}
 }

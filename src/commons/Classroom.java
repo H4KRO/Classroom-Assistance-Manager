@@ -1,17 +1,20 @@
 package commons;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 
 import TCP.TCPJsonMessage;
 
 public class Classroom extends TCPJsonMessage {
 	public String name;
 	public ArrayList<Integer> computers;
-	
+	public Classroom() {
+		super("classroom");
+		this.name = "";
+		this.computers = new ArrayList<Integer>();
+	}
 	public Classroom(String name, ArrayList<Integer> computers){
 		super("classroom");
 		this.name = name;
@@ -19,24 +22,16 @@ public class Classroom extends TCPJsonMessage {
 	}
 	
 	public String toString() {
-		return this.name + " " + this.computers.toString();
-	}
-
-	@Override
-	public void setData() {
-		JSONObject data = new JSONObject();
-		data.put("name", this.name);
-		JSONArray computers = new JSONArray();
-		Iterator<Integer> computer = this.computers.iterator();
-		while(computer.hasNext()) {
-			computers.add(computer.next());
-		}
-		data.put("computers", computers);
-		this.data = data;
+		String string = "\n========================================\n";
+		string += "Classroom :\n";
+		string += " Name : " + this.name + "\n";
+		string += " Computers : " + this.computers + "\n";
+		string += "========================================\n";
+		return string;
 	}
 	
-	public static Classroom toClassroom(JSONObject message) {
-		// Converti message en Classroom et le retourne
-		return null;
+	public static Classroom toClassroom(String message) {
+		Gson g = new Gson();
+		return g.fromJson(message, Classroom.class);
 	}
 }

@@ -12,7 +12,6 @@ public abstract class TCPServer {
 		this.isRunning = true;
 		while(isRunning) {
 			Socket clientSocket = this.serverSocket.accept();
-			System.out.println("New client !");
 			Thread clientThread = new Thread(connection(clientSocket));
 			clientThread.start();
 		}

@@ -1,17 +1,26 @@
 package TCP;
 
-import org.json.simple.JSONObject;
+import com.google.gson.Gson;
 
-public abstract class TCPJsonMessage {
+public class TCPJsonMessage {
 	private String type;
-	protected JSONObject data;
+	private String data;
+	public TCPJsonMessage() {
+		this.type = "";
+	}
 	public TCPJsonMessage(String type) {
 		this.type = type;
 	}
-	public JSONObject getData() {
-		this.setData();
-		this.data.put("type", this.type);
+	public String getData() {
+		Gson gson = new Gson();
+		this.data = gson.toJson(this);
 		return this.data;
 	}
-	public abstract void setData();
+	public static TCPJsonMessage toTCPJsonMessage(String data) {
+		Gson gson = new Gson();
+		return gson.fromJson(data, TCPJsonMessage.class);
+	}
+	public String getType() {
+		return this.type;
+	}
 }
