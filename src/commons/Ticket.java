@@ -1,11 +1,8 @@
-package client;
-
-import java.util.Date;
+package commons;
 
 public class Ticket {
 	public String motif;
 	public String description;
-	public Date date;
 	public int criticity;
 	public boolean state;
 	
