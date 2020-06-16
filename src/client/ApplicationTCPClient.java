@@ -2,11 +2,13 @@ package client;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 import TCP.TCPHandler;
 import TCP.TCPJsonMessage;
 import commons.Classrooms;
 import commons.ClientState;
+import commons.Session;
 
 public class ApplicationTCPClient extends TCPHandler {
 	
@@ -15,7 +17,8 @@ public class ApplicationTCPClient extends TCPHandler {
 
 	public ApplicationTCPClient(Socket socket) throws IOException {
 		super(socket);
-		this.state = ClientState.NOTCONNECTED;
+		this.state = ClientState.CONNECTED;
+		
 	}
 	
 	public ClientState getState() {
@@ -25,20 +28,19 @@ public class ApplicationTCPClient extends TCPHandler {
 	public Classrooms getClassrooms() {
 		return this.classrooms;
 	}
-
+	
 	@Override
 	public void trait(String message) {
 		TCPJsonMessage jsonMessage = TCPJsonMessage.toTCPJsonMessage(message);
-		if(this.state == ClientState.NOTCONNECTED && jsonMessage.getType() == "classrooms") {
-			this.state = ClientState.CONNECTED;
+		System.out.println("Message type : " + jsonMessage.getType());
+		if(this.state == ClientState.CONNECTED && jsonMessage.getType().equals("classrooms")) { // Get Session
+			System.out.println("Classrooms received, i'm connected.");
 			this.classrooms = Classrooms.toClassrooms(message);
-			System.out.println(this.classrooms);
-			try {
-				this.stop();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Session s = Session.prompt(this.classrooms);
+			this.send(s.getData());
+		}else if(this.state == ClientState.CONNECTED && jsonMessage.getType().equals("ok")) {
+			System.out.println("I'm logged.");
+			this.state = ClientState.REGISTRED;
 		}
 	}
 

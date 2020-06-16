@@ -7,13 +7,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public abstract class TCPHandler implements Runnable {
-	private Socket socket;
+	protected Socket socket;
 	private BufferedReader bufferedReader; 
 	private PrintWriter printWriter;
 	public TCPHandler(Socket socket) throws IOException {
 		this.socket = socket;
 		this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 		this.printWriter = new PrintWriter(this.socket.getOutputStream());
+		Thread t = new Thread(this);
+		t.start();
 	}
 	@Override
 	public void run() {
@@ -25,7 +27,7 @@ public abstract class TCPHandler implements Runnable {
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
 		}
 	}
