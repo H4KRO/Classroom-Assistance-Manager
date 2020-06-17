@@ -49,7 +49,6 @@ public class Classroom extends TCPJsonMessage {
 		for(int i = 0; i < numberOfComputers; i++) {
 			cList.add(new Integer(i));
 		}
-		//s.close();
 		System.out.println("========================================");
 		return new Classroom(name, cList);
 	}

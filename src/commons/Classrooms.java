@@ -51,7 +51,6 @@ public class Classrooms extends TCPJsonMessage {
 			String e = s.nextLine();
 			another = !e.equals("n");
 		}
-		//s.close();
 		return new Classrooms(classroomsArray);
 	}
 }

@@ -27,13 +27,11 @@ public class Session extends TCPJsonMessage {
 	}
 	
 	public String toString() {
-		String string = "\n========================================\n";
-		string += "Session :\n";
-		string += " Name : " + this.name + "\n";
-		string += " Surname : " + this.surname + "\n";
-		string += " Classroom : " + this.classroomId + "\n";
-		string += " ComputerId : " + this.computerId + "\n";
-		string += "========================================\n";
+		String string = " Session :\n";
+		string += "  Name : " + this.name + "\n";
+		string += "  Surname : " + this.surname + "\n";
+		string += "  Classroom : " + this.classroomId + "\n";
+		string += "  ComputerId : " + this.computerId + "\n";
 		return string;
 	}
 	
@@ -68,7 +66,6 @@ public class Session extends TCPJsonMessage {
 		System.out.println("Computer id : ");
 		int computerId = s.nextInt();
 		System.out.println("========================================");
-		s.close();
 		return new Session(name, surname, classroomId, computerId);
 		
 	}
